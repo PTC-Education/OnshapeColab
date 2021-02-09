@@ -41,18 +41,18 @@ urls = {
 
 
 def setArgs(did, wid, eid, base=None):
-    args = {
-        "base" = None,
-        "did" = None,
-        "wid" = None,
-        "eid" = None,
-        "key" = None,
-        "secret" = None
-    }
+    # par = {
+    #     "base" = None,
+    #     "did" = None,
+    #     "wid" = None,
+    #     "eid" = None,
+    #     "key" = None,
+    #     "secret" = None
+    # }
 
     if(base):
-        args["base"] = base
-    args["did"] = did
+        arg["base"] = base
+    arg["did"] = did
     args["wid"] = wid
     args["eid"] = eid
 
