@@ -39,16 +39,18 @@ urls = {
 #                                           #
 #############################################
 
-args = {
-    "base" = None,
-    "did" = None,
-    "wid" = None,
-    "eid" = None,
-    "key" = None,
-    "secret" = None
-}
+
 
 def setArgs(did, wid, eid, base=None):
+    args = {
+        "base" = None,
+        "did" = None,
+        "wid" = None,
+        "eid" = None,
+        "key" = None,
+        "secret" = None
+    }
+    
     if(base):
         args["base"] = base
     args["did"] = did
