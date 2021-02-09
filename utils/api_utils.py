@@ -54,7 +54,7 @@ def setArgs(did, wid, eid, base=None):
     arg["wid"] = wid
     arg["eid"] = eid
 
-    if (base):
+    if (not base):
         arg["base"] = "https://cad.onshape.com"
         print(". . . Defaulting to cad.onshape.com . . .")
 
