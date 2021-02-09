@@ -40,19 +40,27 @@ urls = {
 #############################################
 
 # Parse Arguements from the cmdline
-parser = argparse.ArgumentParser(description='Onshape API')
+# parser = argparse.ArgumentParser(description='Onshape API')
 
-parser.add_argument('-d', dest="did",
-    help="Specify a document id (did) for your Onshape workspace")
-parser.add_argument('-w', dest="wid",
-    help="Specify a workspace id (wid) for your Onshape workspace")
-parser.add_argument('-e', dest="eid",
-    help="Specify an element id (eid) for your Onshape workspace")
-parser.add_argument('-b', dest="base",
-    help="Specify a base url your Onshape workspace")
+# parser.add_argument('-d', dest="did",
+#     help="Specify a document id (did) for your Onshape workspace")
+# parser.add_argument('-w', dest="wid",
+#     help="Specify a workspace id (wid) for your Onshape workspace")
+# parser.add_argument('-e', dest="eid",
+#     help="Specify an element id (eid) for your Onshape workspace")
+# parser.add_argument('-b', dest="base",
+#     help="Specify a base url your Onshape workspace")
 
-parser.add_argument('-p', dest="port",
-    help="Specify a port for your Spike Prime")
+# parser.add_argument('-p', dest="port",
+#     help="Specify a port for your Spike Prime")
+
+
+def setArgs(base, did, wid, eid):
+    args.base = base
+    args.did = did
+    args.wid = wid
+    args.eid = eid
+
 
 args = parser.parse_args()
 
@@ -74,9 +82,15 @@ if (not args.base):
     print(". . . Defaulting to rogers.onshape.com . . .")
 
 # Gets api key and secret key
-with open("api-key", "r") as f: 
-    key = f.readline().rstrip()
-    secret = f.readline().rstrip()
+# with open("api-key", "r") as f: 
+#     key = f.readline().rstrip()
+#     secret = f.readline().rstrip()
+
+def setKeys(access, secret):
+    key = access
+    secret = secret
+
+
 
 # Setting up the client
 client = Client(configuration={"base_url": args.base,
