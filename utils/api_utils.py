@@ -65,7 +65,7 @@ def setArgs(did, wid, eid, base=None):
 #   verbose - boolean for excessive print statements
 # Returns:
 #   Nothing (wip)
-def checkArgs(verbose):
+def checkArgs(verbose=False):
     if(verbose):
         print("Using Workbench:", arg["base"])
         print("Document ID:", arg["did"])
@@ -83,10 +83,10 @@ def setKeys(access, secret):
     arg["key"] = access
     arg["secret"] = secret
 
-def connectToClient(verbose):
+def connectToClient(verbose=False):
     # Setting up the client
     client = Client(configuration={"base_url": arg["base"],
-                                "access_key": "",
+                                "access_key": arg["key"],
                                 "secret_key": arg["secret"]})
     headers = {'Accept': 'application/vnd.onshape.v1+json; charset=UTF-8;qs=0.1',
             'Content-Type': 'application/json'}
