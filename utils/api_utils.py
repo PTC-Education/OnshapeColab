@@ -38,6 +38,10 @@ urls = {
 #                                           #
 #############################################
 
+arg = {}
+
+
+def setArgs(did, wid, eid, base=None):
 
 arg = {
     "base": None,
@@ -47,8 +51,6 @@ arg = {
     "key": None,
     "secret":None
 }
-
-def setArgs(did, wid, eid, base=None):
     
     if(base):
         arg["base"] = base
