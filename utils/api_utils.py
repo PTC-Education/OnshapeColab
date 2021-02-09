@@ -47,6 +47,7 @@ arg = {
     "secret":None
 }
 
+
 def setArgs(did, wid, eid, base=None):
     if(base):
         arg["base"] = base
@@ -57,6 +58,7 @@ def setArgs(did, wid, eid, base=None):
     if (not base):
         arg["base"] = "https://cad.onshape.com"
         print(". . . Defaulting to cad.onshape.com . . .")
+
 
 # checkArgs() - Validates the did, wid, and eid
 # Parameters:
@@ -81,14 +83,16 @@ def setKeys(access, secret):
     arg["key"] = access
     arg["secret"] = secret
 
-def connectToClient():
+def connectToClient(verbose):
     # Setting up the client
     client = Client(configuration={"base_url": arg["base"],
-                                "access_key": arg["key"],
+                                "access_key": "",
                                 "secret_key": arg["secret"]})
     headers = {'Accept': 'application/vnd.onshape.v1+json; charset=UTF-8;qs=0.1',
             'Content-Type': 'application/json'}
 
+    if(verbose):
+        print("connected to Onshape Client!")
 
 
 
