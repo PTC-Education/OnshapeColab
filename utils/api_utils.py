@@ -39,40 +39,26 @@ urls = {
 #############################################
 
 
+arg = {
+    "base": None,
+    "did": None,
+    "wid": None,
+    "eid": None,
+    "key": None,
+    "secret":None
+}
 
 def setArgs(did, wid, eid, base=None):
-    # arg = {
-    #     "base" = None,
-    #     "did" = None,
-    #     "wid" = None,
-    #     "eid" = None,
-    #     "key" = None,
-    #     "secret" = None
-    # }
-    # arg = {}
-
+    
     if(base):
         arg["base"] = base
     arg["did"] = did
     arg["wid"] = wid
     arg["eid"] = eid
 
-    if (not arg["base"]):
+    if (base):
         arg["base"] = "https://cad.onshape.com"
         print(". . . Defaulting to cad.onshape.com . . .")
-
-def setKeys(access, secret):
-    arg["key"] = access
-    arg["secret"] = secret
-
-def connectToClient():
-    # Setting up the client
-    client = Client(configuration={"base_url": arg["base"],
-                                "access_key": arg["key"],
-                                "secret_key": arg["secret"]})
-    headers = {'Accept': 'application/vnd.onshape.v1+json; charset=UTF-8;qs=0.1',
-            'Content-Type': 'application/json'}
-
 
 # checkArgs() - Validates the did, wid, and eid
 # Parameters:
@@ -90,6 +76,23 @@ def checkArgs(verbose):
     ## TODO:
     # hit api and check if did, wid, and eid are valid
     # right now checkArgs only prints args
+
+
+
+def setKeys(access, secret):
+    arg["key"] = access
+    arg["secret"] = secret
+
+def connectToClient():
+    # Setting up the client
+    client = Client(configuration={"base_url": arg["base"],
+                                "access_key": arg["key"],
+                                "secret_key": arg["secret"]})
+    headers = {'Accept': 'application/vnd.onshape.v1+json; charset=UTF-8;qs=0.1',
+            'Content-Type': 'application/json'}
+
+
+
 
 #############################################
 #                                           #
