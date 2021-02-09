@@ -39,63 +39,28 @@ urls = {
 #                                           #
 #############################################
 
-# Parse Arguements from the cmdline
-# parser = argparse.ArgumentParser(description='Onshape API')
-
-# parser.add_argument('-d', dest="did",
-#     help="Specify a document id (did) for your Onshape workspace")
-# parser.add_argument('-w', dest="wid",
-#     help="Specify a workspace id (wid) for your Onshape workspace")
-# parser.add_argument('-e', dest="eid",
-#     help="Specify an element id (eid) for your Onshape workspace")
-# parser.add_argument('-b', dest="base",
-#     help="Specify a base url your Onshape workspace")
-
-# parser.add_argument('-p', dest="port",
-#     help="Specify a port for your Spike Prime")
-
-
-def setArgs(base, did, wid, eid):
-    args.base = base
+def setArgs(did, wid, eid, base=None:
+    if(base):
+        args.base = base
     args.did = did
     args.wid = wid
     args.eid = eid
 
-
-# Parse Arguements from file
-if (not (args.did and args.wid and args.eid)):
-    try:
-        with open("document-preferences", "r") as f: 
-            args.base = f.readline().rstrip()
-            args.did  = f.readline().rstrip()
-            args.wid  = f.readline().rstrip()
-            args.eid  = f.readline().rstrip()
-    except:
-        print("All parameters not given.")
-        print("Please give did, wid, and eid using the flags -d, -w, and -e")
-        exit()
-
-if (not args.base):
-    args.base = "https://rogers.onshape.com"
-    print(". . . Defaulting to rogers.onshape.com . . .")
-
-# Gets api key and secret key
-# with open("api-key", "r") as f: 
-#     key = f.readline().rstrip()
-#     secret = f.readline().rstrip()
+    if (not args.base):
+        args.base = "https://cad.onshape.com"
+        print(". . . Defaulting to cad.onshape.com . . .")
 
 def setKeys(access, secret):
     key = access
     secret = secret
 
-
-
-# Setting up the client
-client = Client(configuration={"base_url": args.base,
-                               "access_key": key,
-                               "secret_key": secret})
-headers = {'Accept': 'application/vnd.onshape.v1+json; charset=UTF-8;qs=0.1',
-           'Content-Type': 'application/json'}
+def connectToClient():
+    # Setting up the client
+    client = Client(configuration={"base_url": args.base,
+                                "access_key": key,
+                                "secret_key": secret})
+    headers = {'Accept': 'application/vnd.onshape.v1+json; charset=UTF-8;qs=0.1',
+            'Content-Type': 'application/json'}
 
 
 # checkArgs() - Validates the did, wid, and eid
