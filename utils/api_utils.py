@@ -62,8 +62,6 @@ def setArgs(base, did, wid, eid):
     args.eid = eid
 
 
-args = parser.parse_args()
-
 # Parse Arguements from file
 if (not (args.did and args.wid and args.eid)):
     try:
