@@ -41,7 +41,7 @@ urls = {
 
 
 def setArgs(did, wid, eid, base=None):
-    # par = {
+    # arg = {
     #     "base" = None,
     #     "did" = None,
     #     "wid" = None,
@@ -49,26 +49,27 @@ def setArgs(did, wid, eid, base=None):
     #     "key" = None,
     #     "secret" = None
     # }
+    arg = {}
 
     if(base):
         arg["base"] = base
     arg["did"] = did
-    args["wid"] = wid
-    args["eid"] = eid
+    arg["wid"] = wid
+    arg["eid"] = eid
 
-    if (not args["base"]):
-        args["base"] = "https://cad.onshape.com"
+    if (not arg["base"]):
+        arg["base"] = "https://cad.onshape.com"
         print(". . . Defaulting to cad.onshape.com . . .")
 
 def setKeys(access, secret):
-    args["key"] = access
-    args["secret"] = secret
+    arg["key"] = access
+    arg["secret"] = secret
 
 def connectToClient():
     # Setting up the client
-    client = Client(configuration={"base_url": args["base"],
-                                "access_key": args["key"],
-                                "secret_key": args["secret"]})
+    client = Client(configuration={"base_url": arg["base"],
+                                "access_key": arg["key"],
+                                "secret_key": arg["secret"]})
     headers = {'Accept': 'application/vnd.onshape.v1+json; charset=UTF-8;qs=0.1',
             'Content-Type': 'application/json'}
 
@@ -80,10 +81,10 @@ def connectToClient():
 #   Nothing (wip)
 def checkArgs(verbose):
     if(verbose):
-        print("Using Workbench:", args["base"])
-        print("Document ID:", args["did"])
-        print("Workspace ID:", args["wid"])
-        print("Element ID:", args["eid"])
+        print("Using Workbench:", arg["base"])
+        print("Document ID:", arg["did"])
+        print("Workspace ID:", arg["wid"])
+        print("Element ID:", arg["eid"])
         print()
     
     ## TODO:
@@ -107,15 +108,15 @@ def callAPI(endpoint, params, payload, hasReturn):
 
     method    = urls[endpoint][0]
     fixed_url = urls[endpoint][1]
-    fixed_url = fixed_url.replace('did', args["did"])
-    fixed_url = fixed_url.replace('wid', args["wid"])
-    fixed_url = fixed_url.replace('eid', args["eid"])
+    fixed_url = fixed_url.replace('did', arg["did"])
+    fixed_url = fixed_url.replace('wid', arg["wid"])
+    fixed_url = fixed_url.replace('eid', arg["eid"])
     # if (endpoint == 'assembly-definition'):
     #   fixed_url = fixed_url.replace('OPT1', "true") # Mate Features
     #   fixed_url = fixed_url.replace('OPT2', "true") # Non Solids
     #   fixed_url = fixed_url.replace('OPT3', "true") # Mate Connectors
 
-    response = client.api_client.request(method, url=args["base"] + fixed_url,
+    response = client.api_client.request(method, url=arg["base"] + fixed_url,
         query_params=params, headers=headers, body=payload)
 
     # print(response.data)
