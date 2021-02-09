@@ -39,7 +39,7 @@ urls = {
 #                                           #
 #############################################
 
-def setArgs(did, wid, eid, base=None:
+def setArgs(did, wid, eid, base=None):
     if(base):
         args.base = base
     args.did = did
