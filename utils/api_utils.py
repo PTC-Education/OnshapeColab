@@ -12,7 +12,6 @@
 ###############################################################################
 
 from onshape_client.client import Client
-import argparse 
 import json
 
 urls = {
@@ -50,7 +49,7 @@ def setArgs(did, wid, eid, base=None):
         "key" = None,
         "secret" = None
     }
-    
+
     if(base):
         args["base"] = base
     args["did"] = did
