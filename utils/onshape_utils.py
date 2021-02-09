@@ -35,7 +35,7 @@ from onshape_client.oas.exceptions import ApiException
 #             "type": "" (eg. 'Part')
 #         }
 #     }
-def getAssemblyInfo(verbose):
+def getAssemblyInfo(verbose=Fase):
     payload = {}
     params = {}
 

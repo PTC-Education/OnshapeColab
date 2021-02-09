@@ -47,8 +47,7 @@ arg = {
     "secret":None
 }
 
-
-def setArgs(did, wid, eid, base=None):
+def setArgs(did, wid, eid, base=None, verbose=False):
     if(base):
         arg["base"] = base
     arg["did"] = did
@@ -59,24 +58,16 @@ def setArgs(did, wid, eid, base=None):
         arg["base"] = "https://cad.onshape.com"
         print(". . . Defaulting to cad.onshape.com . . .")
 
-
-# checkArgs() - Validates the did, wid, and eid
-# Parameters:
-#   verbose - boolean for excessive print statements
-# Returns:
-#   Nothing (wip)
-def checkArgs(verbose=False):
     if(verbose):
         print("Using Workbench:", arg["base"])
         print("Document ID:", arg["did"])
         print("Workspace ID:", arg["wid"])
         print("Element ID:", arg["eid"])
         print()
-    
+
     ## TODO:
     # hit api and check if did, wid, and eid are valid
     # right now checkArgs only prints args
-
 
 
 def setKeys(access, secret):
