@@ -8,7 +8,7 @@
 #    Last modified by Teo 10/16/20
 # (C) Tufts Center for Engineering Education and Outreach (CEEO)
 ###############################################################################
-import utils.api_utils as api
+import api_utils as api
 import json
 
 from onshape_client.oas.exceptions import ApiException
