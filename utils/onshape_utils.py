@@ -13,6 +13,12 @@ import json
 
 from onshape_client.oas.exceptions import ApiException
 
+def connectToOnshape(did, wid, eid, access, secret, base=None, verbose=False):
+    api.setArgs(did, wid, eid, base=base, verbose=verbose)
+    api.setKeys(access, secret)
+    api.connectToClient(verbose=verbose)
+
+
 #############################################
 #                                           #
 #             Assembly API Call             #
