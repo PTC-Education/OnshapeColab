@@ -7,8 +7,9 @@
 #    specific API stuff, also includes general API call function
 # Credits/inspirations: API calls referenced from Daniel Ryaboshapka @drybell
 # History: 
-#    Last modified by Teo 7/2/20
+#    Last modified by Teo 2/17/21
 # (C) Tufts Center for Engineering Education and Outreach (CEEO)
+# (C) PTC Education
 ###############################################################################
 
 from onshape_client.client import Client
@@ -38,31 +39,34 @@ urls = {
 #                                           #
 #############################################
 
-arg = {
+## TODO: Please find a better solution for global variables than a dictionary
+args = {
     "base": None,
     "did": None,
     "wid": None,
     "eid": None,
     "key": None,
-    "secret":None
+    "secret":None,
+    "client": None,
+    "headers": None
 }
 
 def setArgs(did, wid, eid, base=None, verbose=False):
     if(base):
-        arg["base"] = base
-    arg["did"] = did
-    arg["wid"] = wid
-    arg["eid"] = eid
+        args["base"] = base
+    args["did"] = did
+    args["wid"] = wid
+    args["eid"] = eid
 
     if (not base):
-        arg["base"] = "https://cad.onshape.com"
+        args["base"] = "https://cad.onshape.com"
         print(". . . Defaulting to cad.onshape.com . . .")
 
     if(verbose):
-        print("Using Workbench:", arg["base"])
-        print("Document ID:", arg["did"])
-        print("Workspace ID:", arg["wid"])
-        print("Element ID:", arg["eid"])
+        print("Using Workbench:", args["base"])
+        print("Document ID:", args["did"])
+        print("Workspace ID:", args["wid"])
+        print("Element ID:", args["eid"])
         print()
 
     ## TODO:
@@ -71,15 +75,15 @@ def setArgs(did, wid, eid, base=None, verbose=False):
 
 
 def setKeys(access, secret):
-    arg["key"] = access
-    arg["secret"] = secret
+    args["key"] = access
+    args["secret"] = secret
 
 def connectToClient(verbose=False):
     # Setting up the client
-    client = Client(configuration={"base_url": arg["base"],
-                                "access_key": arg["key"],
-                                "secret_key": arg["secret"]})
-    headers = {'Accept': 'application/vnd.onshape.v1+json; charset=UTF-8;qs=0.1',
+    args["client"] = Client(configuration={"base_url": args["base"],
+                                "access_key": args["key"],
+                                "secret_key": args["secret"]})
+    args["headers"] = {'Accept': 'application/vnd.onshape.v1+json; charset=UTF-8;qs=0.1',
             'Content-Type': 'application/json'}
 
     if(verbose):
@@ -104,16 +108,16 @@ def callAPI(endpoint, params, payload, hasReturn):
 
     method    = urls[endpoint][0]
     fixed_url = urls[endpoint][1]
-    fixed_url = fixed_url.replace('did', arg["did"])
-    fixed_url = fixed_url.replace('wid', arg["wid"])
-    fixed_url = fixed_url.replace('eid', arg["eid"])
+    fixed_url = fixed_url.replace('did', args["did"])
+    fixed_url = fixed_url.replace('wid', args["wid"])
+    fixed_url = fixed_url.replace('eid', args["eid"])
     # if (endpoint == 'assembly-definition'):
     #   fixed_url = fixed_url.replace('OPT1', "true") # Mate Features
     #   fixed_url = fixed_url.replace('OPT2', "true") # Non Solids
     #   fixed_url = fixed_url.replace('OPT3', "true") # Mate Connectors
 
-    response = client.api_client.request(method, url=arg["base"] + fixed_url,
-        query_params=params, headers=headers, body=payload)
+    response = args["client"].api_client.request(method, url=args["base"] + fixed_url,
+        query_params=params, headers=args["headers"], body=payload)
 
     # print(response.data)
     if (hasReturn):

@@ -5,8 +5,9 @@
 # Date: 6/26/20
 # Description: Functions for specific onshape API calls; uses api_utils.py
 # History: 
-#    Last modified by Teo 10/16/20
+#    Last modified by Teo 2/17/21
 # (C) Tufts Center for Engineering Education and Outreach (CEEO)
+# (C) PTC Education
 ###############################################################################
 import api_utils as api
 import json
