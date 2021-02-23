@@ -9,7 +9,7 @@
 # (C) Tufts Center for Engineering Education and Outreach (CEEO)
 # (C) PTC Education
 ###############################################################################
-import api_utils as api
+import utils.api_utils as api
 import json
 
 from onshape_client.oas.exceptions import ApiException
