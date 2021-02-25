@@ -106,7 +106,7 @@ def getAssemblyInfo(verbose=False):
 #   verbose - boolean for excessive print statements
 # Returns:
 #   Nothing (success code)
-def postTransform(M, isRelative, parts, verbose):
+def postTransform(M, isRelative, parts, verbose=False):
     
     payload = {
         "occurrences": [],
@@ -203,7 +203,7 @@ def postTransform(M, isRelative, parts, verbose):
 #   verbose - boolean for excessive print statements
 # Returns:
 #   a configurations body (straight from the api)
-def getConfigurations(verbose):
+def getConfigurations(verbose=False):
     payload = {}
     params = {}
     
@@ -229,7 +229,7 @@ def getConfigurations(verbose):
 #   verbose - boolean for excessive print statements
 # Returns:
 #   Nothing (success code)
-def setConfigurations(toSet, configInfo ,verbose):
+def setConfigurations(toSet, configInfo ,verbose=False):
     
     payload = configInfo
     params = {}
