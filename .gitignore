@@ -25,6 +25,10 @@ dev/
 transforms/
 
 
+.DS_Store
+
+__pycache__/
+
 /transformations_milan
 /transformations/__pycache__
 /transformations/api-key
