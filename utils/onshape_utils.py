@@ -10,6 +10,7 @@
 # (C) PTC Education
 ###############################################################################
 from .api import api_utils as api
+from .api import transform_utils as transform
 import json
 
 from onshape_client.oas.exceptions import ApiException
@@ -272,7 +273,7 @@ def printConfigurations(configInfo):
             print("There are no values for this configuration.")
 
 def printTransformations(assemblyInfo):
-    # for identifier in assemblyInfo:
-    #     print(assemblyInfo[identifier]["partName"], "(" + identifier + ")")
-    #     transform.decodeMatrix(assemblyInfo[identifier]["position"], True)
+    for identifier in assemblyInfo:
+        print(assemblyInfo[identifier]["partName"], "(" + identifier + ")")
+        transform.decodeMatrix(assemblyInfo[identifier]["position"], True)
         print()
