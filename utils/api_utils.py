@@ -7,7 +7,7 @@
 #    specific API stuff, also includes general API call function
 # Credits/inspirations: API calls referenced from Daniel Ryaboshapka @drybell
 # History: 
-#    Last modified by Teo 2/17/21
+#    Last modified by Teo 3/3/21
 # (C) Tufts Center for Engineering Education and Outreach (CEEO)
 # (C) PTC Education
 ###############################################################################
@@ -51,6 +51,17 @@ args = {
     "headers": None
 }
 
+
+# setArgs() - sets the global variables needed for connecting to the client
+# Parameters:
+#   did - the document's did as a string
+#   wid - the document's wid as a string
+#   eid - the document's eid as a string
+#   base (optional) - the document's base url as a string
+#   verbose (optional) - boolean if the user wants to print their document
+#      identifiers
+# Returns:
+#   Nothing
 def setArgs(did, wid, eid, base=None, verbose=False):
     if(base):
         args["base"] = base
@@ -74,10 +85,25 @@ def setArgs(did, wid, eid, base=None, verbose=False):
     # right now checkArgs only prints args
 
 
+# setKeys() - sets the global variables access and secret key for connecting
+#    to the client
+# Parameters:
+#   access - the user's access key
+#   secret - the user's secret key
+# Returns:
+#   Nothing
 def setKeys(access, secret):
     args["key"] = access
     args["secret"] = secret
 
+
+# connectToClient() - uses clobal variables to connect to Onshape's Python
+#    API client
+# Parameters:
+#   verbose (optional) - Boolean for if the user wants confirmation of a
+#    of connection
+# Returns:
+#   Nothing
 def connectToClient(verbose=False):
     # Setting up the client
     args["client"] = Client(configuration={"base_url": args["base"],
@@ -121,4 +147,4 @@ def callAPI(endpoint, params, payload, hasReturn):
 
     # print(response.data)
     if (hasReturn):
-    	return json.loads(response.data);
+    	return json.loads(response.data)

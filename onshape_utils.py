@@ -5,7 +5,7 @@
 # Date: 6/26/20
 # Description: Functions for specific onshape API calls; uses api_utils.py
 # History: 
-#    Last modified by Teo 2/17/21
+#    Last modified by Teo 3/3/21
 # (C) Tufts Center for Engineering Education and Outreach (CEEO)
 # (C) PTC Education
 ###############################################################################
@@ -134,62 +134,6 @@ def postTransform(M, isRelative, parts, verbose=False):
 
     return "success"
 
-
-#############################################
-#                                           #
-#              Feature API Calls            #
-#                                           #
-#############################################
-
-# getFeatureList() - for getting feature list (7.16.20)
-#   for onshape- team
-# Parameters:
-#
-# Returns:
-#
-# def getFeatureList(verbose):
-#     payload = {}
-#     params = {}
-
-#     response = api.callAPI('feature-list', payload , params, True)
-
-#     featureReturn = {}
-
-#     featureReturn["serializationVersion"]   = response["serializationVersion"]
-#     featureReturn["sourceMicroversion"]     = response["sourceMicroversion"]
-
-#     featureReturn["features"] = response["features"]
-
-#     if(verbose):
-#         print(json.dumps(response, indent = 2)) # debugging for printing payload
-
-#     return featureReturn
-
-# postFeature() - for editting features (7.16.20)
-#   for onshape- team
-# Parameters:
-#
-# Returns:
-#
-# def postFeature(serialV, microV, feature, verbose):
-#     payload = {
-#       "feature": feature,
-#       "serializationVersion": serialV,
-#       "sourceMicroversion": microV
-#     }
-#     params = {}
-
-#     try:
-#         response = api.callAPI('add-feature', payload , params, True)
-#     except ApiException as error:
-#         print("Invalid Request!")
-#         print("Sever message:", error.body)
-#         print("Ending. . .")
-#         exit();
-
-#     print(json.dumps(response, indent = 2)) # debugging for printing payload
-
-#     return response
 
 #############################################
 #                                           #
