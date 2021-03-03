@@ -14,6 +14,18 @@ import json
 
 from onshape_client.oas.exceptions import ApiException
 
+# connectToOnshape() - The catch all function for making the initial connection
+#   to the Onshape Python API client
+# Parameters:
+#   did - The document's did
+#   wid - The document's wid
+#   eid - The document's eid
+#   access - The user's access key
+#   secret - The user's secret key
+#   base (optional) - The user's workspace
+#   verbose (optional) - Boolean value if the user wants maxmium information
+# Returns:
+#   Nothing (However this is necessary to run to connect to the API)
 def connectToOnshape(did, wid, eid, access, secret, base=None, verbose=False):
     api.setArgs(did, wid, eid, base=base, verbose=verbose)
     api.setKeys(access, secret)
@@ -33,7 +45,7 @@ def connectToOnshape(did, wid, eid, access, secret, base=None, verbose=False):
 # Returns:
 #   - see below
 
-### Return Data Structure: a dict of part-objects with their id as the key
+# ## Return Data Structure: a dict of part-objects with their id as the key
 #     assemblyReturn = {
 #         part_id : {
 #             "fullId": [], (eg. ['MFiKjKEzvWtOlyZzO'])
@@ -144,7 +156,7 @@ def postTransform(M, isRelative, parts, verbose=False):
 
 # getConfigurations() - Calls 'get-config'
 # Parameters:
-#   verbose - boolean for excessive print statements
+#   verbose (optional) - boolean for excessive print statements
 # Returns:
 #   a configurations body (straight from the api)
 def getConfigurations(verbose=False):
@@ -178,26 +190,29 @@ def setConfigurations(toSet, configInfo ,verbose=False):
     payload = configInfo
     params = {}
 
-    for config in configInfo["configurationParameters"]:
-        if config["message"]["parameterId"] in toSet:
+    if len(toSet) > 0:
+        for config in configInfo["configurationParameters"]:
+            if config["message"]["parameterId"] in toSet:
 
-            # print("Config:", config["message"]["parameterId"])
-            # print("\tBefore:", config["message"]["rangeAndDefault"]["message"]["defaultValue"])
-            # print("\tAfter:", toSet[config["message"]["parameterId"]])
+                # print("Config:", config["message"]["parameterId"])
+                # print("\tBefore:", config["message"]["rangeAndDefault"]["message"]["defaultValue"])
+                # print("\tAfter:", toSet[config["message"]["parameterId"]])
 
-            currentConfig = config["message"]["rangeAndDefault"]["message"]
-            currentConfig["defaultValue"] = toSet[config["message"]["parameterId"]]
-            currentConfig["minValue"] = toSet[config["message"]["parameterId"]]
-            currentConfig["maxValue"] = toSet[config["message"]["parameterId"]]
+                currentConfig = config["message"]["rangeAndDefault"]["message"]
+                currentConfig["defaultValue"] = toSet[config["message"]["parameterId"]]
+                currentConfig["minValue"] = toSet[config["message"]["parameterId"]]
+                currentConfig["maxValue"] = toSet[config["message"]["parameterId"]]
 
-    if (verbose): print(json.dumps(payload, indent = 2))
-    
-    try:
-        response = api.callAPI('set-config', params, payload, False)
-    except ApiException as error:
-        print("Invalid transform!")
-        print("Sever message:", error.body)
-        print("Ending. . .")
-        exit();
+        if verbose: print(json.dumps(payload, indent = 2))
+        
+        try:
+            response = api.callAPI('set-config', params, payload, False)
+        except ApiException as error:
+            print("Invalid transform!")
+            print("Sever message:", error.body)
+            print("Ending. . .")
+            exit();
+    else:
+        if verbose: print("The 'toSet' dictionary was empty so the API was not called.")
 
     return "success"

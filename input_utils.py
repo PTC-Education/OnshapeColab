@@ -39,3 +39,21 @@ def promptUser(questionString):
     else:
         print("The input entered is not valid.")
         return False
+
+def promptConfigurations(configInfo):
+    newConfigs = {}
+    print("What Parts do you want to transform?")
+    for config in configInfo["configurationParameters"]:
+        query = "\tEdit {field}?".format(field = config["message"]["parameterId"])
+        if (promptUser(query)):
+            
+            try:
+                print("Old default value: ", config["message"]["rangeAndDefault"]["message"]["defaultValue"])
+                print("\tEnter new value:")
+                newVal = input()
+
+                newConfigs[config["message"]["parameterId"]] = newVal;
+            except:
+                print("This value is not setable.")
+    return newConfigs
+    

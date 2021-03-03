@@ -4,10 +4,8 @@ This playground was adapted from a previously made repo: https://github.com/imno
 ## Purpose
 This repository is intended to be used with an external file which references the utility functions here. Its intent is to make powerful features of the Onshape API accessible.
 
-# Getting Started/File System
-## Before Running 
-
-### Onshape
+# Getting Started
+## Onshape
 - To connect to the Onshape API, an api key and secret are needed.
   - This is done here: https://dev-portal.onshape.com > API Keys > "Create New API Key"
   - Save these in a safe place as they will be needed to use the function ```connectToOnshape()```
@@ -21,7 +19,7 @@ This repository is intended to be used with an external file which references th
   - The workspace is the base url, such as "https://cad.onshape.com"
   - The did, wid, eid, and workspace will also be needed for the initial ```connectToOnshape()``` function.
 
-### Thingworx (if being used)
+## Thingworx (if being used)
 - To connect with a thingworx dashboard, a url and an app key are needed.
   - Put the url and the app key into the file ```thingworx-keys``` (right
   now it has placeholders "[url]" and "[appkey]")
@@ -126,7 +124,26 @@ Returns:
   - Nothing
 
 ## ```input_utils.py```
+### ```readInTransformObject```
+reates transform args objects (as defined above)
+
+Parameters:
+  - None
+
+Returns:
+  - A transform args object
+
+### ```promtUser()```
+Asks user a query string that has a yes or no answer
+
+Parameters:
+  - queryString - The question for the user
+Returns:
+  - A boolean value depending on the user's input
+
+### ```promptConfigurations()```
 [coming soon]
+
 
 ## ```thingworx_utils.py```
 [coming soon]
