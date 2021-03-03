@@ -10,7 +10,6 @@
 # (C) PTC Education
 ###############################################################################
 from .utils import api_utils as api
-from .utils import transform_utils as transform
 import json
 
 from onshape_client.oas.exceptions import ApiException
@@ -258,22 +257,3 @@ def setConfigurations(toSet, configInfo ,verbose=False):
         exit();
 
     return "success"
-
-def printConfigurations(configInfo):
-    for config in configInfo["configurationParameters"]:
-        print(config["message"]["parameterId"])
-        try:
-            print("\tDefault value: ",
-                config["message"]["rangeAndDefault"]["message"]["defaultValue"])
-            print("\tMax value: ",
-                config["message"]["rangeAndDefault"]["message"]["maxValue"])
-            print("\tMin value: ",
-                config["message"]["rangeAndDefault"]["message"]["minValue"])
-        except:
-            print("There are no values for this configuration.")
-
-def printTransformations(assemblyInfo):
-    for identifier in assemblyInfo:
-        print(assemblyInfo[identifier]["partName"], "(" + identifier + ")")
-        transform.decodeMatrix(assemblyInfo[identifier]["position"], True)
-        print()

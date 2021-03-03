@@ -87,7 +87,7 @@ def connectToClient(verbose=False):
             'Content-Type': 'application/json'}
 
     if(verbose):
-        print("connected to Onshape Client!")
+        print("Connected to Onshape Client!", end="\n\n")
 
 
 

@@ -199,7 +199,7 @@ def decodeMatrix(M, verbose):
     try:
         w_rad = 1/2 * math.acos(1 - 1/2 * (math.pow((M[9] - M[6]),2) + math.pow((M[2] - M[8]),2) + pow((M[4] - M[1]),2)))
     except:
-        print("Out of bounds, position may be printed wrong")
+        print("\t**Transform Matrix out of bounds, position may be printed wrong**")
         w_rad = 1/2 * math.acos(2 - 1/2 * (math.pow((M[9] - M[6]),2) + math.pow((M[2] - M[8]),2) + pow((M[4] - M[1]),2)))
     sc = math.sin(w_rad/2) * math.cos(w_rad/2)
 
@@ -217,7 +217,7 @@ def decodeMatrix(M, verbose):
     translation = [tx, ty, tz, x, y, z, w]
 
     if (verbose):
-        prettyPrintPosition(translation)
+        prettyPrintPosition(translation, True)
     return translation
 
 
@@ -363,10 +363,12 @@ def prettyPrintMatrix(x):
     print()
 
 
-def prettyPrintPosition(posArray):
+def prettyPrintPosition(posArray, tabs=False):
+    if tabs: print("\t", end="")
     print("Translation (x, y, z): \t\t", round(posArray[0], 5),
                                    '\t', round(posArray[1], 5),
                                    '\t', round(posArray[2], 5))
+    if tabs: print("\t", end="")
     print("Rotation (ux, uy, uz, alpha): \t", round(posArray[3], 5),
                                         '\t', round(posArray[4], 5),
                                         '\t', round(posArray[5], 5),
