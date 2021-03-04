@@ -49,7 +49,7 @@ def promptConfigurations(configInfo):
             
             try:
                 print("Current default value: ", config["message"]["rangeAndDefault"]["message"]["defaultValue"])
-                print("\tEnter new value:")
+                print("\tEnter new value:", endl="\n\t")
                 newVal = input()
                 try:
                     newVal = int(newVal)
