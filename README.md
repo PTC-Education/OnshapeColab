@@ -279,6 +279,7 @@ Asks user a query string that has a yes or no answer
 
 Parameters:
   - queryString - The question for the user
+
 Returns:
   - A boolean value depending on the user's input
 
@@ -298,7 +299,13 @@ WIP
 ```
 
 ### ```promptConfigurations()```
-[coming soon]
+Asks user if they would like to edit configurations from a given configInfo
+
+Parameters:
+  - configInfo - a dictionary returned from getConfigurations()
+
+Returns:
+  - A  dictionary containing configuration names and their new desired values
 
 Example call:
 ```
