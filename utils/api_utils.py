@@ -69,6 +69,13 @@ def setArgs(did, wid, eid, base=None, verbose=False):
     args["wid"] = wid
     args["eid"] = eid
 
+    if len(did) != 24:
+        print("***Please double check your did! Downstream errors are likely. A client will still be made.***")
+    if len(wid) != 24:
+        print("***Please double check your wid! Downstream errors are likely. A client will still be made.***")
+    if len(eid) != 24:
+        print("***Please double check your did! Downstream errors are likely. A client will still be made.***")
+
     if (not base):
         args["base"] = "https://cad.onshape.com"
         print(". . . Defaulting to cad.onshape.com . . .")
