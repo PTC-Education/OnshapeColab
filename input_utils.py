@@ -40,6 +40,12 @@ def promptUser(questionString):
         print("The input entered is not valid.")
         return False
 
+# promtConfigurations() - Asks user if they would like to edit configurations
+#   from a given configIngo
+# Parameters:
+#   configInfo - a dictionary returned from getConfigurations()
+# Returns:
+#   A  dictionary containing configuration names and their new desired values
 def promptConfigurations(configInfo):
     newConfigs = {}
     print("What Configurations do you want to edit?")
