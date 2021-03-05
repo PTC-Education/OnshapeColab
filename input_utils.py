@@ -49,13 +49,15 @@ def promptConfigurations(configInfo):
             
             try:
                 print("Current default value: ", config["message"]["rangeAndDefault"]["message"]["defaultValue"])
-                print("\tEnter new value:", endl="\n\t")
-                newVal = input()
+                print("\tEnter new value:")#, endl="\n\t")
+                inputVal = input()
+
                 try:
-                    newVal = int(newVal)
-                    newConfigs[config["message"]["parameterId"]] = newVal;
+                    newVal = int(inputVal)
+                    newConfigs[config["message"]["parameterId"]] = newVal
                 except:
-                    print("Invalid input for a configurations.")
+                    print("A non-integer value was entered. The configuration will not be added.")
+
             except:
                 print("This value is not setable.")
     return newConfigs
