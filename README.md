@@ -49,6 +49,22 @@ Parameters:
 Returns:
   - Nothing (However this is necessary to run to connect to the API)
 
+Example call: 
+```
+oc.connectToOnshape(did, wid, eid, access, secret, verbose=True)
+```
+
+Example print to output:
+```
+. . . Defaulting to cad.onshape.com . . .
+Using Workbench: https://cad.onshape.com
+Document ID: d75bb6f0855244bdb3902141
+Workspace ID: 2a59db92740eb894f3b29038
+Element ID: 3bddbc17e620a65192e913f8
+
+Connected to Onshape Client!
+```
+
 ### ```getAssemblyInfo()```
   Calls 'assembly-definition' and returns a part and position list
 
@@ -71,6 +87,42 @@ Ex.
         }
     }</pre>
 
+Example call:
+```
+assemblyInfo = oc.getAssemblyInfo()
+```
+
+Example return:
+```
+assemblyInfo = 
+{
+  'M1YqtB8Y6W/lPi9Ug':
+  {
+    'fullPath': ['M1YqtB8Y6W/lPi9Ug'],
+    'position': [1.000,      1.665e-16,  1.187e-17, -3.490e-19,
+                 1.129e-17, -6.915e-16, -1.000,     -0.005,
+                -5.989e-32,  1.000,     -6.322e-16, -0.003,
+                 0.0,        0.0,        0.0,        1.0],
+    'partName': 'Hour Hand <3>',
+    'type': 'Part'
+  },
+  'MSIp2OzuDBEJzDhb5':
+  {
+    'fullPath': ['MSIp2OzuDBEJzDhb5'],
+    'position': [1.000,     -3.330e-16,  2.622e-17,  1.210e-18,
+                -2.465e-32, -2.414e-16, -0.999,     -0.006,
+                 0.0,         1.000,    -2.029e-16, -0.003,
+                 0.0,           0.0,     0.0,        1.0],
+    'partName': 'Second Hand <4>',
+    'type': 'Part'
+  }
+}
+```
+Note: The values inside position have been truncated for formatting
+
+
+
+
 ### ```postTransform()```
 Calls 'occurence-transforms' endpoint
 
@@ -83,6 +135,21 @@ Parameters:
 Returns:
   - Nothing (success code)
 
+Example call:
+```
+WIP
+```
+
+Example print:
+```
+WIP
+```
+
+Example return:
+```
+WIP
+```
+
 ### ```getConfigurations()```
 Calls 'get-config'
 
@@ -91,6 +158,14 @@ Parameters:
 
 Returns:
   - a configurations body (straight from the api)
+
+Example call:
+```
+oc.getConfigurations()
+```
+
+Example return:
+This return is never meant to be used directly. It is meant to be passed between functions and never be printed.
 
 ### ```setConfigurations()```
 Calls 'set-config'
@@ -102,8 +177,18 @@ Parameters:
 Returns:
   - Nothing (success code)
 
+Example call:
+```
+oc.setConfigurations(newConfigs, configInfo)
+```
+
+Example print:
+```
+'success'
+```
+
 ## File: ```print_utils.py```
-### printConfigurations()
+### ```printConfigurations()```
 Prints information from a configurationInfo body (as returned from getConfigurations())
 
 Parameters:
@@ -112,6 +197,28 @@ Parameters:
   
 Returns:
   - Nothing
+
+Example call:
+```
+oc.printConfigurations(configInfo)
+```
+
+Example print:
+```
+Configurations:
+Rotation
+	Default value:  0.0
+	Max value:  0.0
+	Min value:  0.0
+HourRotation
+	Default value:  0.0
+	Max value:  0.0
+	Min value:  0.0
+SecondRotation
+	Default value:  0.0
+	Max value:  0.0
+	Min value:  0.0
+```
 
 ### ```printAssembly()```
 Prints information from an assemblyInfo body (as described in onshape_utils)
@@ -123,6 +230,25 @@ Parameters:
 Returns:
   - Nothing
 
+Example call:
+```
+oc.printAssembly(assemblyInfo, positions=True)
+```
+
+Example print to output:
+```
+Assembly Info:
+Hour Hand <3> (M1YqtB8Y6W/lPi9Ug)
+	**Transform Matrix out of bounds, position may be printed wrong**
+	Translation (x, y, z): 		 -0.0 	 -0.006 	 -0.003
+	Rotation (ux, uy, uz, alpha): 	 1.41421 	 0.0 	 -0.0 	 45.0
+Second Hand <4> (MSIp2OzuDBEJzDhb5)
+	Translation (x, y, z): 		 0.0 	 -0.007 	 -0.003
+	Rotation (ux, uy, uz, alpha): 	 1.41421 	 0.0 	 0.0 	 45.0
+```
+Note: "Transform Matrix out of bounds, position may be printed wrong" is a bug warning.
+
+
 ## ```input_utils.py```
 ### ```readInTransformObject```
 reates transform args objects (as defined above)
@@ -133,17 +259,95 @@ Parameters:
 Returns:
   - A transform args object
 
+  Example call:
+```
+WIP
+```
+
+Example print:
+```
+WIP
+```
+
+Example return:
+```
+WIP
+```
+
 ### ```promtUser()```
 Asks user a query string that has a yes or no answer
 
 Parameters:
   - queryString - The question for the user
+
 Returns:
   - A boolean value depending on the user's input
 
+  Example call:
+```
+WIP
+```
+
+Example print:
+```
+WIP
+```
+
+Example return:
+```
+WIP
+```
+
 ### ```promptConfigurations()```
-[coming soon]
+Asks user if they would like to edit configurations from a given configInfo
+
+Parameters:
+  - configInfo - a dictionary returned from getConfigurations()
+
+Returns:
+  - A  dictionary containing configuration names and their new desired values
+
+Example call:
+```
+newConfigs = oc.promptConfigurations(configInfo)
+```
+
+Example print:
+```
+What Configurations do you want to edit?
+	Edit Rotation? (y/n)
+y
+Current default value:  0.0
+	Enter new value:
+180
+	Edit HourRotation? (y/n)
+n
+	Edit SecondRotation? (y/n)
+n
+```
+
+Example return:
+```
+{
+  "Rotation": 180
+} 
+```
 
 
 ## ```thingworx_utils.py```
 [coming soon]
+
+Example call:
+```
+WIP
+```
+
+Example print:
+```
+WIP
+```
+
+Example return:
+```
+WIP
+```
