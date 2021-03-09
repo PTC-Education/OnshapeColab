@@ -33,7 +33,9 @@ urls = {
         'get-config':
             ['GET', '/api/elements/d/did/w/wid/e/eid/configuration'],
         'set-config':
-            ['POST', '/api/elements/d/did/w/wid/e/eid/configuration']
+            ['POST', '/api/elements/d/did/w/wid/e/eid/configuration'],
+        'shaded-views':
+            ['GET', '/api/parts/d/did/w/wid/e/eid/partid/pid/shadedviews'],
 }
 
 #############################################
@@ -153,7 +155,7 @@ def connectToClient(verbose=False):
 #   payload  - request body, in json format
 # Returns:
 #   The response data object from the api call
-def callAPI(endpoint, params, payload, hasReturn, didOnly=False):
+def callAPI(endpoint, params, payload, hasReturn, didOnly=False, pid=""):
 
     method    = urls[endpoint][0]
     fixed_url = urls[endpoint][1]
@@ -161,6 +163,9 @@ def callAPI(endpoint, params, payload, hasReturn, didOnly=False):
     if not didOnly:
         fixed_url = fixed_url.replace('wid', args["wid"])
         fixed_url = fixed_url.replace('eid', args["eid"])
+    if pid:
+        fixed_url = fixed_url.replace('pid', pid)
+        print(fixed_url)
     # if (endpoint == 'assembly-definition'):
     #   fixed_url = fixed_url.replace('OPT1', "true") # Mate Features
     #   fixed_url = fixed_url.replace('OPT2', "true") # Non Solids

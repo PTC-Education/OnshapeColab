@@ -10,17 +10,26 @@
 
 import requests,json # packages for Thingworx POST & GET
 
-## Parse Thingworx credentials from file
-with open("thingworx-keys", "r") as f: 
-    url = f.readline().rstrip()
-    appKey = f.readline().rstrip()
-
-headers = {
+TWargs = {
+    "url": None,
+    "appKey": None,
+    "headers": {
         'AppKey': appKey,
         'Accept': "application/json",
         'Content-Type': "application/json"
         }
+}
 
+def setTWArgs(url, appKey):
+    TWargs["url"] = url
+    TWargs["appKey"] = appKey
+
+
+def connectToThingwox(url, appKey, verbose=False):
+    setTWArgs(url, appKey)
+    fields = thingworxGET()
+    for field in fields:
+        print(field)
 
 
 #############################################
@@ -36,12 +45,17 @@ headers = {
 # Returns:
 #   - a dictionary where the parameter fields are the keys and the thingworx
 #      values are the keys
-def thingworxGET(fields):
-    body = requests.get(url,headers=headers).json()
+def thingworxGET(fields={}):
+    body = requests.get(TWargs["url"],headers=TWargs["headers"]).json()
     data = {}
 
-    for field in fields:
-        data[field] = body["rows"][0][field]
+    if fields:
+        for field in fields:
+            data[field] = body["rows"][0][field]
+    else:
+        for field in body["rows"][0]:
+            data[field] = body["rows"][0][field]
+        ## WARNING: Untested
 
     return data
 
@@ -54,4 +68,4 @@ def thingworxGET(fields):
 # Returns:
 #   - nothing
 def thingworxPUT(setValues):
-  return requests.put(url,headers=headers,json=propValue)
+  return requests.put(TWargs["url"],headers=TWargs["headers"],json=propValue)

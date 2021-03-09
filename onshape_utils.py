@@ -15,11 +15,8 @@ import json
 from onshape_client.oas.exceptions import ApiException
 
 def getDocumentInfo(verbose=False):
-    payload = {}
-    params = {}
-    
     try:
-        response = api.callAPI('document-info', params, payload, True, didOnly=True)
+        response = api.callAPI('document-info', {}, {}, True, didOnly=True)
     except ApiException as error:
         api.printAsError("Check your did, access, and secret keys have been entered correctly!")
         print("Sever message:", error.body)
@@ -52,13 +49,14 @@ def connectToOnshape(did, wid, eid, access, secret, base=None, verbose=False):
     print("Retrieved document information:")
     print("\tDocument Name:", docInfo["name"])
     print("\tDocument Owner:", docInfo["owner"]["name"])
-
+    # TODO: Maybe add printing description later?
+    
     if wid != docInfo["defaultWorkspace"]["id"]:
         print("Note: The wid provided is not the default workspace for the document!")
 
     if eid != docInfo["defaultElementId"]:
         print("Note: The eid provided is not the default for the document!")
-    
+    print()
 
 
 #############################################
@@ -245,3 +243,22 @@ def setConfigurations(toSet, configInfo ,verbose=False):
         if verbose: print("The 'toSet' dictionary was empty so the API was not called.")
 
     return "success"
+
+
+
+def getShadedView(pid, verbose=False):
+    payload = {}
+    params = {}
+    
+    try:
+        response = api.callAPI('shaded-views', params, payload, True, pid=pid)
+    except ApiException as error:
+        print("Invalid transform!")
+        print("Sever message:", error.body)
+        print("Ending. . .")
+        exit();
+
+    if (verbose):
+        print(response)
+
+    return response
