@@ -13,9 +13,12 @@
 ###############################################################################
 
 from onshape_client.client import Client
+import re
 import json
 
 urls = {
+        'document-info':
+            ['GET', '/api/documents/did'],
         'create-feature-studio':
             ['POST', '/api/featurestudios/d/did/w/wid'],
         'assembly-definition':
@@ -32,6 +35,18 @@ urls = {
         'set-config':
             ['POST', '/api/elements/d/did/w/wid/e/eid/configuration']
 }
+
+#############################################
+#                                           #
+#           General Helper Functions        #
+#                                           #
+#############################################
+
+def checkID(identifier, search=re.compile(r'[^a-z0-9]').search):
+    return bool(search(identifier))
+
+def printAsError(strg):
+    print('\033[93m *** WARNING: ' + strg + ' *** \033[0m')
 
 #############################################
 #                                           #
@@ -52,6 +67,7 @@ args = {
 }
 
 
+
 # setArgs() - sets the global variables needed for connecting to the client
 # Parameters:
 #   did - the document's did as a string
@@ -69,12 +85,12 @@ def setArgs(did, wid, eid, base=None, verbose=False):
     args["wid"] = wid
     args["eid"] = eid
 
-    if len(did) != 24:
-        print("***Please double check your did! Downstream errors are likely. A client will still be made.***")
-    if len(wid) != 24:
-        print("***Please double check your wid! Downstream errors are likely. A client will still be made.***")
-    if len(eid) != 24:
-        print("***Please double check your did! Downstream errors are likely. A client will still be made.***")
+    if len(did) != 24 and checkID(did):
+        printAsError("Double check your did! Downstream errors are likely. A client will still be made.")
+    if len(wid) != 24 and checkID(wid):
+        printAsError("Double check your wid! Downstream errors are likely. A client will still be made.")
+    if len(eid) != 24 and checkID(eid):
+        printAsError("Double check your eid! Downstream errors are likely. A client will still be made.")
 
     if (not base):
         args["base"] = "https://cad.onshape.com"
@@ -137,13 +153,14 @@ def connectToClient(verbose=False):
 #   payload  - request body, in json format
 # Returns:
 #   The response data object from the api call
-def callAPI(endpoint, params, payload, hasReturn):
+def callAPI(endpoint, params, payload, hasReturn, didOnly=False):
 
     method    = urls[endpoint][0]
     fixed_url = urls[endpoint][1]
     fixed_url = fixed_url.replace('did', args["did"])
-    fixed_url = fixed_url.replace('wid', args["wid"])
-    fixed_url = fixed_url.replace('eid', args["eid"])
+    if not didOnly:
+        fixed_url = fixed_url.replace('wid', args["wid"])
+        fixed_url = fixed_url.replace('eid', args["eid"])
     # if (endpoint == 'assembly-definition'):
     #   fixed_url = fixed_url.replace('OPT1', "true") # Mate Features
     #   fixed_url = fixed_url.replace('OPT2', "true") # Non Solids
