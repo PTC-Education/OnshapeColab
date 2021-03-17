@@ -14,22 +14,28 @@ TWargs = {
     "url": None,
     "appKey": None,
     "headers": {
-        'AppKey': appKey,
+        'AppKey': None,
         'Accept': "application/json",
         'Content-Type': "application/json"
         }
 }
 
-def setTWArgs(url, appKey):
+def setTWArgs(url, appKey, verbose=False):
     TWargs["url"] = url
     TWargs["appKey"] = appKey
+    TWargs["headers"]["AppKey"] = appKey
+
+    if verbose:
+        print(json.dumps(TWargs, indent=2))
 
 
-def connectToThingwox(url, appKey, verbose=False):
-    setTWArgs(url, appKey)
+def connectToThingworx(url, appKey, verbose=False):
+    setTWArgs(url, appKey, verbose)
     fields = thingworxGET()
+    print("Thingworx fields:")
     for field in fields:
-        print(field)
+        print("\t", field)
+    print()
 
 
 #############################################
@@ -45,17 +51,24 @@ def connectToThingwox(url, appKey, verbose=False):
 # Returns:
 #   - a dictionary where the parameter fields are the keys and the thingworx
 #      values are the keys
-def thingworxGET(fields={}):
+def thingworxGET(fields={}, verbose=False):
     body = requests.get(TWargs["url"],headers=TWargs["headers"]).json()
     data = {}
+
+    if verbose: print("Fields and Values")     
 
     if fields:
         for field in fields:
             data[field] = body["rows"][0][field]
+            if verbose:
+                print("\t" + field + ":", body["rows"][0][field])
     else:
         for field in body["rows"][0]:
             data[field] = body["rows"][0][field]
+            if verbose:
+                print("\t" + field + ":", body["rows"][0][field])
         ## WARNING: Untested
+    if verbose: print()
 
     return data
 
@@ -68,4 +81,4 @@ def thingworxGET(fields={}):
 # Returns:
 #   - nothing
 def thingworxPUT(setValues):
-  return requests.put(TWargs["url"],headers=TWargs["headers"],json=propValue)
+  return requests.put(TWargs["url"]+'*',headers=TWargs["headers"],json=setValues)
