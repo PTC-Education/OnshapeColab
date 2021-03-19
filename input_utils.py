@@ -41,7 +41,7 @@ def promptUser(questionString):
         return False
 
 # promtConfigurations() - Asks user if they would like to edit configurations
-#   from a given configIngo
+#   from a given configInfo
 # Parameters:
 #   configInfo - a dictionary returned from getConfigurations()
 # Returns:
@@ -67,4 +67,26 @@ def promptConfigurations(configInfo):
             except:
                 print("This value is not setable.")
     return newConfigs
+    
+def promptThings(thingworxGet):
+    newThings = {}
+    print("What Thing fields do you want to edit?")
+    for field in thingworxGet:
+        query = "\tEdit {}?".format(field)
+        if (promptUser(query)):
+            
+            try:
+                print("Current default value: ", thingworxGet[field])
+                print("\tEnter new value:")#, endl="\n\t")
+                inputVal = input()
+
+                try:
+                    newVal = int(inputVal)
+                    newThings[field] = newVal
+                except:
+                    print("A non-integer value was entered. The field will not be added.")
+
+            except:
+                print("This value is not setable.")
+    return newThings
     
