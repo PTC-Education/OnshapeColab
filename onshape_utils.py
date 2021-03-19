@@ -14,19 +14,6 @@ import json
 
 from onshape_client.oas.exceptions import ApiException
 
-def getDocumentInfo(verbose=False):
-    try:
-        response = api.callAPI('document-info', {}, {}, True, didOnly=True)
-    except ApiException as error:
-        api.printAsError("Check your did, access, and secret keys have been entered correctly!")
-        print("Sever message:", error.body)
-        print("Ending. . .")
-        exit();
-
-    if (verbose):
-        print(json.dumps(response, indent=2))
-
-    return response
 
 # connectToOnshape() - The catch all function for making the initial connection
 #   to the Onshape Python API client
@@ -56,7 +43,69 @@ def connectToOnshape(did, wid, eid, access, secret, base=None, verbose=False):
 
     if eid != docInfo["defaultElementId"]:
         print("Note: The eid provided is not the default for the document!")
-    print()
+    print() 
+
+
+def getDocumentInfo(verbose=False):
+    try:
+        response = api.callAPI('document-info', {}, {}, True, wid=False, eid=False)
+    except ApiException as error:
+        api.printAsError("Check your did, access, and secret keys have been entered correctly!")
+        print("Sever message:", error.body)
+        print("Ending. . .")
+        exit();
+
+    if (verbose):
+        print(json.dumps(response, indent=2))
+
+    return response
+
+
+def getParts(verbose=False):
+    payload = {}
+    params = {}
+    
+    try:
+        response = api.callAPI('parts', params, payload, True, eid=False)
+    except ApiException as error:  
+        print("Something went wrong!")
+        print("Sever message:", error.body)
+        print("Ending. . .")
+        exit();
+
+    if (verbose):
+        print(response)
+
+    partInfo = {}
+
+    for part in response:
+        try:
+            partInfo[part["name"]] = {}
+            partInfo[part["name"]]["pid"] = part["partId"]
+            partInfo[part["name"]]["eid"] = part["elementId"]
+        except:
+            print("There was a problem processing", part['name'])
+
+    return partInfo
+
+
+def getMeta(eid, pid, verbose=False):
+    payload = {}
+    params = {}
+    
+    try:
+        response = api.callAPI('get-metadata', params, payload, True, neweid=eid, pid=pid)
+    except ApiException as error:
+        print("Invalid transform!")
+        print("Sever message:", error.body)
+        print("Ending. . .")
+        exit();
+
+    if (verbose):
+        print(response)
+
+
+    return response
 
 
 #############################################
