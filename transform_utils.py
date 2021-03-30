@@ -73,6 +73,8 @@ commonTransforms = {
 #   M[8]  = m13     M[9]  = m23     M[10] = m33     M[11] = m43
 #   M[12] = m14     M[13] = m24     M[14] = m34     M[15] = m44
 
+def test():
+    print('imported')
 
 # getTranslationMatrix() - Generates a transform matrix from a transform args
 #   object
@@ -81,7 +83,7 @@ commonTransforms = {
 #   verbose - a boolean value for if the matrix should be printed
 # Returns:
 #   A transform matrix.
-def getTranslationMatrix(translation, verbose):
+def getTranslationMatrix(translation, verbose=False):
 
     # Translate variables
     tx = translation[0]
@@ -94,10 +96,16 @@ def getTranslationMatrix(translation, verbose):
     # Angle for Rotation
     w_deg = translation[6]
     if (w_deg == 0):
-        return [1.0,  0.0,  0.0,  tx,
-                0.0,  1.0,  0.0,  ty,
-                0.0,  0.0,  1.0,  tz,
-                0.0,  0.0,  0.0,  1.0]
+        M = [1.0,  0.0,  0.0,  tx,
+             0.0,  1.0,  0.0,  ty,
+             0.0,  0.0,  1.0,  tz,
+             0.0,  0.0,  0.0,  1.0]
+        
+        if verbose:
+            prettyPrintMatrix(M)
+
+        return M
+
 
     # Unit Vector for Rotation
     rotLen = math.sqrt(math.pow(rx, 2) + math.pow(ry, 2) + math.pow(rz, 2))
@@ -127,8 +135,9 @@ def getTranslationMatrix(translation, verbose):
          0.0,                                                   # m43
          1.0]                                                   # m43
 
-    if (verbose):
+    if verbose:
         prettyPrintMatrix(M)
+        
     return M
 
 
@@ -312,12 +321,13 @@ def decodeMatrix(M, verbose):
 # Returns:
 #   Nothing
 def prettyPrintMatrix(x):
+    print("[")
     col = math.sqrt(len(x))
     for i in range(0, len(x)):
         if (i%col == 0 and i != 0):
             print()
-        print(x[i], end='\t')
-    print()
+        print("  ", x[i], end='\t')
+    print("\n]")
 
 # prettyPrintMatrix() - Nicely prints a transforms arg
 # Parameters:
@@ -339,3 +349,20 @@ def prettyPrintPosition(posArray, tabs=False):
     #                                    '\t', posArray[4],
     #                                    '\t', posArray[5],
     #                                    '\t', posArray[6])
+
+# printAssembly() - Prints information from an assemblyInfo body (as described
+#     in onshape_utils)
+# Parameters:
+#   assemblyInfo - data strcture returned from getAssemblyInfo, information to
+#    be printed
+#   positions (optional) - boolean for if the user wants the positions of the
+#    parts in the assembly to be printed
+# Returns:
+#   Nothing
+def printAssembly(assemblyInfo, positions=False):
+    print("Assembly Info:")
+    for identifier in assemblyInfo:
+        print(assemblyInfo[identifier]["partName"], "(" + identifier + ")")
+        if positions:
+            decodeMatrix(assemblyInfo[identifier]["position"], True)
+    print()

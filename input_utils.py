@@ -10,7 +10,7 @@
 #   None
 # Returns:
 #   A transform args object
-def readInTransformObject():
+def readInTransformObject(verbose=False):
     args = []
     dim  = ["tx", "ty", "tz", "rx", "ry", "rz", "alpha (degree)"]
     for i in range(0,7):
@@ -20,7 +20,9 @@ def readInTransformObject():
         except:
             print("The input entered is not valid. (Ending . . .)")
             exit()
-    
+    if verbose:
+        print(args)
+
     return args
 
 
@@ -68,6 +70,9 @@ def promptConfigurations(configInfo):
                 print("This value is not setable.")
     return newConfigs
     
+
+
+
 def promptThings(thingworxGet):
     newThings = {}
     print("What Thing fields do you want to edit?")
@@ -90,3 +95,41 @@ def promptThings(thingworxGet):
                 print("This value is not setable.")
     return newThings
     
+
+def promptParts(assemblyInfo):
+    partsToTransform = []
+    print("What Parts do you want to transform?")
+    for identifier in assemblyInfo:
+        query = "\tTransform {partName}?".format(partName = assemblyInfo[identifier]["partName"])
+        if (promptUser(query)):
+            partsToTransform.append(assemblyInfo[identifier]["fullPath"])
+    return partsToTransform
+
+# def promptTransforms(assemblyInfo):
+
+#     ### Get User Transform args object
+#     print("Please enter your transform parameters.")
+#     args = readInTransformObject()
+    
+#     ### Gets "Is it a relative transform" from the user
+#     isRelative = promptUser("Do you want the transform to be relative?")
+
+#     ### Gets Transform Matrix from Transform args object
+#     print("Generated transform matrix:")
+#     M = transform.getTranslationMatrix(args, verbose=True)
+#     print()
+
+#     ### Gets List of Parts to Transform
+#     partsToTransform = []
+#     print("What Parts do you want to transform?")
+#     for identifier in assemblyInfo:
+#         query = "\tTransform {partName}?".format(partName = assemblyInfo[identifier]["partName"])
+#         if (promptUser(query)):
+#             partsToTransform.append(assemblyInfo[identifier]["fullPath"])
+        
+#     print()
+
+#     ### Performs API call
+#     if (promptUser("Do you want to call the api?")):
+#         state = onshape.postTransform(M, isRelative, partsToTransform, False)
+#         print("Status:", state)

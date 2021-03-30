@@ -108,6 +108,27 @@ def getMeta(eid, pid, verbose=False):
     return response
 
 
+## WIP
+# def postMeta(eid, pid, verbose=False):
+#     payload = {}
+#     params = {}
+    
+#     try:
+#         response = api.callAPI('post-metadata', params, payload, True, neweid=eid, pid=pid)
+#     except ApiException as error:
+#         print("Invalid transform!")
+#         print("Sever message:", error.body)
+#         print("Ending. . .")
+#         exit();
+
+#     if (verbose):
+#         print(response)
+
+
+#     return response
+
+
+
 #############################################
 #                                           #
 #             Assembly API Call             #
@@ -209,7 +230,7 @@ def postTransform(M, isRelative, parts, verbose=False):
         payload["occurrences"].append(occurance)
     # print(json.dumps(payload, indent = 2)) # debugging for printing payload
 
-    if (verbose): print(payload)
+    if (verbose): print(json.dumps(payload, indent=2))
     params = {}
 
     try:
