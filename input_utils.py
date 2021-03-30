@@ -50,24 +50,29 @@ def promptUser(questionString):
 #   A  dictionary containing configuration names and their new desired values
 def promptConfigurations(configInfo):
     newConfigs = {}
-    print("What Configurations do you want to edit?")
-    for config in configInfo["configurationParameters"]:
-        query = "\tEdit {field}?".format(field = config["message"]["parameterId"])
-        if (promptUser(query)):
-            
-            try:
-                print("Current default value: ", config["message"]["rangeAndDefault"]["message"]["defaultValue"])
-                print("\tEnter new value:")#, endl="\n\t")
-                inputVal = input()
 
+    if len(configInfo["configurationParameters"]) > 0:
+        print("What Configurations do you want to edit?")
+        for config in configInfo["configurationParameters"]:
+            query = "\tEdit {field}?".format(field = config["message"]["parameterId"])
+            if (promptUser(query)):
+                
                 try:
-                    newVal = int(inputVal)
-                    newConfigs[config["message"]["parameterId"]] = newVal
-                except:
-                    print("A non-integer value was entered. The configuration will not be added.")
+                    print("Current default value: ", config["message"]["rangeAndDefault"]["message"]["defaultValue"])
+                    print("\tEnter new value:")#, endl="\n\t")
+                    inputVal = input()
 
-            except:
-                print("This value is not setable.")
+                    try:
+                        newVal = int(inputVal)
+                        newConfigs[config["message"]["parameterId"]] = newVal
+                    except:
+                        print("A non-integer value was entered. The configuration will not be added.")
+
+                except:
+                    print("This value is not setable.")
+    else:
+        print("There are no configurations to be set in this document.")
+
     return newConfigs
     
 
