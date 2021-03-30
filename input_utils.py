@@ -10,7 +10,7 @@
 #   None
 # Returns:
 #   A transform args object
-def readInTransformObject(verbose=False):
+def promptTransArg(verbose=False):
     args = []
     dim  = ["tx", "ty", "tz", "rx", "ry", "rz", "alpha (degree)"]
     for i in range(0,7):
