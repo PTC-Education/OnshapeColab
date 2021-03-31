@@ -65,6 +65,94 @@ Element ID: 3bddbc17e620a65192e913f8
 Connected to Onshape Client!
 ```
 
+
+### ```getDocumentInfo()```
+
+Parameters:
+  - verbose (optional) - boolean for printing the raw response from the Onshape API
+
+Returns:
+  - raw response from getDocumentInfo API call (this is generally used in conjuction with `connectToOnshape()`) which automatically parses the data.
+
+
+Example call:
+```
+documentInfo = oc.getDocumentInfo(verbose=True)
+```
+
+
+### ```getParts()```
+  Calls 'parts' and returns a dictionary of part names and associated pids and eids
+
+Parameters:
+  - verbose (optional) - boolean for printing the raw response
+
+Returns:
+  - a dictionary of part names and associated pids and eids
+
+Example call:
+```
+parts = oc.getParts()
+```
+
+Example return:
+```
+{
+  "Plane": {
+    "pid": "JHD",
+    "eid": "42bbbd1df82e9fb4a7163114"
+  },
+  "Key": {
+    "pid": "JID",
+    "eid": "42bbbd1df82e9fb4a7163114"
+  },
+  "box": {
+    "pid": "JHD",
+    "eid": "849ac855fd55f14317980bd0"
+  }
+}
+```
+
+### ```getMeta()```
+Calls 'get-metadata' and returns the raw response
+
+Parameters:
+  - eid - element id containing the part
+  - pid - the part id of the specified part
+  - verbose (optional) - a boolean for printing the raw respomse 
+
+Returns: 
+  - the raw response from 'get-metadata'
+
+Example Call:
+```
+WIP
+```
+
+Example Return:
+```
+WIP
+```
+
+### ```postMeta()```
+Calls 'post-metadata' and posts . . . WIP
+
+Parameters:
+  - WIP
+Returns:
+  - WIP
+
+Example Call:
+```
+WIP
+```
+
+Example Return:
+```
+WIP
+```
+
+
 ### ```getAssemblyInfo()```
   Calls 'assembly-definition' and returns a part and position list
 
@@ -137,18 +225,19 @@ Returns:
 
 Example call:
 ```
-WIP
+oc.postTransform(M, True, parts)
 ```
 
 Example print:
 ```
-WIP
+'success'
 ```
 
 Example return:
 ```
-WIP
+"success"
 ```
+or other status code.
 
 ### ```getConfigurations()```
 Calls 'get-config'
@@ -219,34 +308,6 @@ SecondRotation
 	Max value:  0.0
 	Min value:  0.0
 ```
-
-### ```printAssembly()```
-Prints information from an assemblyInfo body (as described in onshape_utils)
-
-Parameters:
-  - assemblyInfo - data strcture returned from getAssemblyInfo, information to be printed
-  - positions (optional) - boolean for if the user wants the positions of the parts in the assembly to be printed
-
-Returns:
-  - Nothing
-
-Example call:
-```
-oc.printAssembly(assemblyInfo, positions=True)
-```
-
-Example print to output:
-```
-Assembly Info:
-Hour Hand <3> (M1YqtB8Y6W/lPi9Ug)
-	**Transform Matrix out of bounds, position may be printed wrong**
-	Translation (x, y, z): 		 -0.0 	 -0.006 	 -0.003
-	Rotation (ux, uy, uz, alpha): 	 1.41421 	 0.0 	 -0.0 	 45.0
-Second Hand <4> (MSIp2OzuDBEJzDhb5)
-	Translation (x, y, z): 		 0.0 	 -0.007 	 -0.003
-	Rotation (ux, uy, uz, alpha): 	 1.41421 	 0.0 	 0.0 	 45.0
-```
-Note: "Transform Matrix out of bounds, position may be printed wrong" is a bug warning.
 
 
 ## ```input_utils.py```
@@ -335,19 +396,122 @@ Example return:
 
 
 ## ```thingworx_utils.py```
-[coming soon]
+This file contains everything pertaining to the connection with ThingWorx
+
+
+### ```connectToThingworx(url, appKey, verbose=False)```
+Sets url and appKey as internal variables for GET and PUT calls
+
+Parameters:
+  - url - the dashboard's thing URL
+  - appKey - an appKey associated with the thing's dashboard with the necssary permissions
+  - verbose (optional) - boolean for printing the avaliable fields
+
+Returns:
+  - nothing
 
 Example call:
 ```
-WIP
+oc.connectToThingworx(url, appKey)
 ```
 
 Example print:
 ```
-WIP
+Thingworx fields:
+	 name
+	 description
+	 thingTemplate
+	 tags
+	 Minute
+	 Second
+	 Hour
+	 HourCopyCopy
+	 HourCopy
+```
+
+
+### ```thingworxGET()```
+Acts as a GET request to the thingworx dashboard
+
+Parameters:
+  - fields - an array of fields wanted from the dashboard
+
+Returns:
+  - a dictionary where the parameter fields are the keys and the thingworx
+     values are the keys
+
+Example call:
+```
+fields = oc.thingworxGET()
+```
+
+Example print:
+```
+Fields and Values
+	name: TP-TestThing1
+	description: Test thing for Onshape Colab
+	thingTemplate: GenericThing
+	tags: []
+	Minute: 0
+	Second: 0
+	Hour: 90
+	HourCopyCopy: 0
+	HourCopy: 0
+```
+
+
+### ```thingworxPUT()```
+Acts as a PUT request to the thingworx dashboard
+Parameters:
+  - setValues - a dictionary of values to be set in the thingworx dashboard
+Returns:
+  nothing
+
+Example call:
+```
+oc.thingworxPUT(setValues)
+```
+
+Example print:
+```
+<Response [200]>
 ```
 
 Example return:
 ```
 WIP
 ```
+
+
+
+
+## ```transforms.py```
+
+### ```printAssembly()```
+Prints information from an assemblyInfo body (as described in onshape_utils)
+
+Parameters:
+  - assemblyInfo - data strcture returned from getAssemblyInfo, information to be printed
+  - positions (optional) - boolean for if the user wants the positions of the parts in the assembly to be printed
+
+Returns:
+  - Nothing
+
+Example call:
+```
+oc.printAssembly(assemblyInfo, positions=True)
+```
+
+Example print to output:
+```
+Assembly Info:
+Hour Hand <3> (M1YqtB8Y6W/lPi9Ug)
+	**Transform Matrix out of bounds, position may be printed wrong**
+	Translation (x, y, z): 		 -0.0 	 -0.006 	 -0.003
+	Rotation (ux, uy, uz, alpha): 	 1.41421 	 0.0 	 -0.0 	 45.0
+Second Hand <4> (MSIp2OzuDBEJzDhb5)
+	Translation (x, y, z): 		 0.0 	 -0.007 	 -0.003
+	Rotation (ux, uy, uz, alpha): 	 1.41421 	 0.0 	 0.0 	 45.0
+```
+Note: "Transform Matrix out of bounds, position may be printed wrong" is a bug warning.
+
