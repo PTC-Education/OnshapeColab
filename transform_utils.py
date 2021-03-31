@@ -73,9 +73,6 @@ commonTransforms = {
 #   M[8]  = m13     M[9]  = m23     M[10] = m33     M[11] = m43
 #   M[12] = m14     M[13] = m24     M[14] = m34     M[15] = m44
 
-def test():
-    print('imported')
-
 # getTranslationMatrix() - Generates a transform matrix from a transform args
 #   object
 # Parameters:
@@ -309,7 +306,7 @@ def decodeMatrix(M, verbose):
 
 #############################################
 #                                           #
-#          General Helper Functions         #
+#          Printing Helper Functions        #
 #                                           #
 #############################################
 
@@ -328,6 +325,7 @@ def prettyPrintMatrix(x):
             print()
         print("  ", x[i], end='\t')
     print("\n]")
+
 
 # prettyPrintMatrix() - Nicely prints a transforms arg
 # Parameters:
@@ -349,6 +347,7 @@ def prettyPrintPosition(posArray, tabs=False):
     #                                    '\t', posArray[4],
     #                                    '\t', posArray[5],
     #                                    '\t', posArray[6])
+
 
 # printAssembly() - Prints information from an assemblyInfo body (as described
 #     in onshape_utils)
