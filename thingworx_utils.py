@@ -29,6 +29,14 @@ def setTWArgs(url, appKey, verbose=False):
         print(json.dumps(TWargs, indent=2))
 
 
+# connectToThingworx() - sets url and appKey as internal variables for GET and
+#   PUT calls
+# Parameters:
+#   url - the dashboard's thing URL
+#   appKey - an appKey associated with the thing's dashboard with the necssary permissions
+#   verbose (optional) - boolean for printing the avaliable fields
+# Returns:
+#   - nothing
 def connectToThingworx(url, appKey, verbose=False):
     setTWArgs(url, appKey, verbose)
     fields = thingworxGET()
@@ -74,8 +82,7 @@ def thingworxGET(fields={}, verbose=False):
 
 
 
-# thingworxPUT() - acts as a PUT request to the thingworx dashboard in the
-#   thingworx-keys file
+# thingworxPUT() - acts as a PUT request to the thingworx dashboard
 # Parameters:
 #   setValues - a dictionary of values to be set in the thingworx dashboard
 # Returns:
