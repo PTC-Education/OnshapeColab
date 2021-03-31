@@ -46,6 +46,11 @@ def connectToOnshape(did, wid, eid, access, secret, base=None, verbose=False):
     print() 
 
 
+# getDocumentInfo() - calls the Onshape GET DocumentInfo Endpoint
+# Parameters:
+#   verbose (optional) - boolean for printing the raw response from the Onshape API
+# Returns:
+#   raw response from getDocumentInfo API call (see below)
 def getDocumentInfo(verbose=False):
     try:
         response = api.callAPI('document-info', {}, {}, True, wid=False, eid=False)
@@ -61,6 +66,12 @@ def getDocumentInfo(verbose=False):
     return response
 
 
+# getParts() - Calls 'parts' and returns a dictionary of part names and associated pids
+#   and eids
+# Parameters:
+#   verbose (optional) - boolean for printing the raw response
+# Returns:
+#   a dictionary of part names and associated pids and eids
 def getParts(verbose=False):
     payload = {}
     params = {}
@@ -88,7 +99,13 @@ def getParts(verbose=False):
 
     return partInfo
 
-
+# getMeta() - calls 'get-metadata' and returns the raw response
+# Parameters:
+#   eid - element id containing the part
+#   pid - the part id of the specified part
+#   verbose (optional) - a boolean for printing the raw respomse 
+# Returns:
+#   the raw response from 'get-metadata'
 def getMeta(eid, pid, verbose=False):
     payload = {}
     params = {}
@@ -316,19 +333,19 @@ def setConfigurations(toSet, configInfo ,verbose=False):
 
 
 
-def getShadedView(pid, verbose=False):
-    payload = {}
-    params = {}
+# def getShadedView(pid, verbose=False):
+#     payload = {}
+#     params = {}
     
-    try:
-        response = api.callAPI('shaded-views', params, payload, True, pid=pid)
-    except ApiException as error:
-        print("Invalid transform!")
-        print("Sever message:", error.body)
-        print("Ending. . .")
-        exit();
+#     try:
+#         response = api.callAPI('shaded-views', params, payload, True, pid=pid)
+#     except ApiException as error:
+#         print("Invalid transform!")
+#         print("Sever message:", error.body)
+#         print("Ending. . .")
+#         exit();
 
-    if (verbose):
-        print(response)
+#     if (verbose):
+#         print(response)
 
-    return response
+#     return response
