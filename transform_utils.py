@@ -256,32 +256,58 @@ def decodeMatrix(M, verbose):
 #     return C
 
 
-# # multiply() - Multiplies matrix A and B
-# # Parameters:
-# #   A - the first transformation matrix
-# #   B - the second transformation matrix
-# # Returns:
-# #   The resultant transformation matrix
-# def multiply(A, B):
-#     X = ([[A[0],   A[1],   A[2],    A[3]],
-#           [A[4],   A[5],   A[6],    A[7]],
-#           [A[8],   A[9],  A[10],   A[11]],
-#          [A[12],  A[13],  A[14],   A[15]]])
+# multiply() - Multiplies matrix A and B
+# Parameters:
+#   A - the first transformation matrix
+#   B - the second transformation matrix
+# Returns:
+#   The resultant transformation matrix
+def multiply(A, B):
+    X = ([[A[0],   A[1],   A[2],    A[3]],
+          [A[4],   A[5],   A[6],    A[7]],
+          [A[8],   A[9],  A[10],   A[11]],
+         [A[12],  A[13],  A[14],   A[15]]])
 
-#     Y = ([[B[0],   B[1],   B[2],    B[3]],
-#           [B[4],   B[5],   B[6],    B[7]],
-#           [B[8],   B[9],  B[10],   B[11]],
-#          [B[12],  B[13],  B[14],   B[15]]])
+    Y = ([[B[0],   B[1],   B[2],    B[3]],
+          [B[4],   B[5],   B[6],    B[7]],
+          [B[8],   B[9],  B[10],   B[11]],
+         [B[12],  B[13],  B[14],   B[15]]])
 
-#     Z = np.matmul(X, Y)
+    Z = np.matmul(X, Y)
 
-#     C = [Z[0][0],   Z[0][1],  Z[0][2],  Z[0][3],
-#          Z[1][0],   Z[1][1],  Z[1][2],  Z[1][3],
-#          Z[2][0],   Z[2][1],  Z[2][2],  Z[2][3],
-#          Z[3][0],   Z[3][1],  Z[3][1],  Z[3][3]]
+    C = [Z[0][0],   Z[0][1],  Z[0][2],  Z[0][3],
+         Z[1][0],   Z[1][1],  Z[1][2],  Z[1][3],
+         Z[2][0],   Z[2][1],  Z[2][2],  Z[2][3],
+         Z[3][0],   Z[3][1],  Z[3][1],  Z[3][3]]
 
-#     return C
+    return C
 
+
+# add() - Multiplies matrix A and B
+# Parameters:
+#   A - the first transformation matrix
+#   B - the second transformation matrix
+# Returns:
+#   The resultant transformation matrix
+def add(A, B):
+    X = ([[A[0],   A[1],   A[2],    A[3]],
+          [A[4],   A[5],   A[6],    A[7]],
+          [A[8],   A[9],  A[10],   A[11]],
+         [A[12],  A[13],  A[14],   A[15]]])
+
+    Y = ([[B[0],   B[1],   B[2],    B[3]],
+          [B[4],   B[5],   B[6],    B[7]],
+          [B[8],   B[9],  B[10],   B[11]],
+         [B[12],  B[13],  B[14],   B[15]]])
+
+    Z = np.add(X, Y)
+
+    C = [Z[0][0],   Z[0][1],  Z[0][2],  Z[0][3],
+         Z[1][0],   Z[1][1],  Z[1][2],  Z[1][3],
+         Z[2][0],   Z[2][1],  Z[2][2],  Z[2][3],
+         Z[3][0],   Z[3][1],  Z[3][1],  Z[3][3]]
+
+    return C
 
 # # multiplyInner() - Multiplies matrix A and B
 # #   Note this function assumes these will be 4x4 matrices and will multiply the
