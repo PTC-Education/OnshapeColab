@@ -322,12 +322,26 @@ Returns:
 
   Example call:
 ```
-WIP
+Please Enter tx value:
+0
+Please Enter ty value:
+0
+Please Enter tz value:
+0
+Please Enter rx value:
+0
+Please Enter ry value:
+0
+Please Enter rz value:
+1
+Please Enter alpha (degree) value:
+90
+[0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 90.0]
 ```
 
 Example print:
 ```
-WIP
+[0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 90.0]
 ```
 
 Example return:
@@ -515,3 +529,193 @@ Second Hand <4> (MSIp2OzuDBEJzDhb5)
 ```
 Note: "Transform Matrix out of bounds, position may be printed wrong" is a bug warning.
 
+### ```getTranslationMatrix()```
+Generates a transform matrix from a transform args object
+
+Note: A transform args objects is an array of seven values: [tx, ty, tz, rx, ry, rz, w] (translate x, y, z, then the rotation axis and angle)
+
+Parameters:
+  - translation - a tranform args object (array)
+  - verbose - a boolean value for if the matrix should be printed
+
+Returns:
+  - A transform matrix.()
+
+Example call:
+```
+M = oc.getTranslationMatrix(transArg)
+```
+
+Example return:
+```
+[
+   1.0	   0.0	   0.0	   0	
+   0.0	   1.0	   0.0	   -0.1	
+   0.0	   0.0	   1.0	   0	
+   0.0	   0.0	   0.0	   1.0	
+]
+```
+Note: This will not be printed like this unless `prettyPrintMatrix()` is used.
+
+### ```decodeMatrix()```
+Generates translation args object from a transform matrix
+
+Parameters:
+  - M - a transformation matrix
+  - vebrose - a boolean value for if the generated transform args object should be printed
+
+Returns:
+  - a tranform args object (array)
+
+Example call:
+```
+M = oc.decodeMatrix(M)
+```
+
+Example input
+```
+M =
+[
+    2.220446049250313e-16, -1.0,                   0.0,  0.7499999999999997,
+    1.0,                    2.220446049250313e-16, 0.0, -0.75,
+    0.0,                    0.0,                   1.0,  0.0,
+    0.0,                    0.0,                   0.0,  1.0
+]
+```
+
+Example return:
+```
+[0.7499999999999997, -0.75, 0.0, 0.0, 0.0, 1.0, 90.0]
+```
+
+Note: A transform args objects is an array of seven values: [tx, ty, tz, rx, ry, rz, w] (translate x, y, z, then the rotation axis and angle)
+
+### ```multiply()```
+Multiplies matrix A and B, where matrices A and B are both 16 x 1 matrices representing 4 x 4 matrices.
+
+Parameters:
+  - A - the first transformation matrix
+  - B - the second transformation matrix
+
+Returns:
+  - The resultant transformation matrix
+
+Example call:
+```
+M = oc.multiply(A, B)
+```
+
+Example input
+```
+M = [
+   1.0,     0.0,     0.0,     0  ,
+   0.0,     1.0,     0.0,     0.1,
+   0.0,     0.0,     1.0,     0  ,
+   0.0,     0.0,     0.0,     1.0
+]
+
+A = [
+   0.0,     0.0,     0.0,     0  ,
+   0.0,     0.0,     0.0,     0.1,
+   0.0,     0.0,     0.0,     0  ,
+   0.0,     0.0,     0.0,     1.0
+]
+```
+
+Example return:
+```
+[
+   0.0	   0.0	   0.0	   0.0	
+   0.0	   0.0	   0.0	   0.2	
+   0.0	   0.0	   0.0	   0.0	
+   0.0	   0.0	   0.0	   1.0	
+]
+```
+
+
+### ```add()```
+Adds matrix A and B, where matrices A and B are both 16 x 1 matrices representing 4 x 4 matrices.
+
+Parameters:
+  - A - the first transformation matrix
+  - B - the second transformation matrix
+
+Returns:
+  - The sum transformation matrix
+
+Example call:
+```
+M = oc.add(A, B)
+```
+
+Example input
+```
+M = [
+   1.0,     0.0,     0.0,     0  ,
+   0.0,     1.0,     0.0,     0.1,
+   0.0,     0.0,     1.0,     0  ,
+   0.0,     0.0,     0.0,     1.0
+]
+
+A = [
+   0.0,     0.0,     0.0,     0  ,
+   0.0,     0.0,     0.0,     0.1,
+   0.0,     0.0,     0.0,     0  ,
+   0.0,     0.0,     0.0,     1.0
+]
+```
+
+Example return:
+```
+[
+   1.0	   0.0	   0.0	   0.0	
+   0.0	   1.0	   0.0	   0.2	
+   0.0	   0.0	   1.0	   0.0	
+   0.0	   0.0	   0.0	   2.0	
+]
+```
+
+
+### ```prettyPrintMatrix()```
+Nicely prints a 1x16 matrix as a 4x4
+
+Parameters:
+  - x - 1x16 matrix
+
+Returns:
+  - The sum transformation matrix
+
+Example call:
+```
+oc.prettyPrintMatrix(x)
+```
+
+Example print:
+```
+[
+   1.0	   0.0	   0.0	   0.0	
+   0.0	   1.0	   0.0	   0.2	
+   0.0	   0.0	   1.0	   0.0	
+   0.0	   0.0	   0.0	   2.0	
+]
+```
+
+### ```prettyPrintPosition()```
+Prints information from an assemblyInfo body (as described in onshape_utils)
+
+Parameters:
+  - x - 1x16 matrix
+
+Returns:
+  - The sum transformation matrix
+
+Example call:
+```
+oc.prettyPrintMatrix(x)
+```
+
+Example print:
+```
+Translation (x, y, z): 		 0.0 	 0.2 	 0.0
+Rotation (ux, uy, uz, alpha): 	 0 	 0 	 0 	 0.0
+```
