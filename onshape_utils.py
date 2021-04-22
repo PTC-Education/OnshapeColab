@@ -333,14 +333,36 @@ def setConfigurations(toSet, configInfo ,verbose=False):
 
 
 
-# def getShadedView(pid, verbose=False):
+# def getShadedViewASM(M, verbose=False):
 #     payload = {}
-#     params = {}
+#     params = {} # {"viewMatrix": M}
     
 #     try:
-#         response = api.callAPI('shaded-views', params, payload, True, pid=pid)
+#         response = api.callAPI('shaded-views-assem', params, payload, True)
 #     except ApiException as error:
-#         print("Invalid transform!")
+#         print("Error!")
+#         print(error)
+#         print(error.status)
+#         print("Sever message:", error.body)
+#         print("Ending. . .")
+#         exit();
+
+#     if (verbose):
+#         print(response)
+
+#     return response
+
+
+# def getShadedViewPS(eid, M, verbose=False):
+#     payload = {}
+#     params = {} # {"viewMatrix": M}
+    
+#     try:
+#         response = api.callAPI('shaded-views-ps', params, payload, True, neweid=eid)
+#     except ApiException as error:
+#         print("Error!")
+#         print(error)
+#         print(error.status)
 #         print("Sever message:", error.body)
 #         print("Ending. . .")
 #         exit();

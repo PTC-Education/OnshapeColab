@@ -34,8 +34,10 @@ urls = {
             ['GET', '/api/elements/d/DID/w/WID/e/EID/configuration'],
         'set-config':
             ['POST', '/api/elements/d/DID/w/WID/e/EID/configuration'],
-        'shaded-views':
-            ['GET', '/api/parts/d/DID/w/WID/e/WID/partid/PID/shadedviews'],
+        'shaded-views-assem':
+            ['GET', '/api/assemblies/d/DID/w/WID/e/EID/shadedviews?outputHeight=500&outputWidth=500&pixelSize=0.003&edges=show&showAllParts=false&includeSurfaces=false&includeWires=false&useAntiAliasing=false&viewMatrix=front'],
+        'shaded-views-ps':
+            ['GET', '/api/partstudios/d/DID/w/WID/e/EID/shadedviews?outputHeight=500&outputWidth=500&pixelSize=0.003&edges=show&showAllParts=false&includeSurfaces=false&useAntiAliasing=false&viewMatrix=top'],
         'parts':
             ['GET', '/api/parts/d/DID/w/WID'],
         'get-metadata':
@@ -177,6 +179,8 @@ def callAPI(endpoint, params, payload, hasReturn, wid=True, eid=True, neweid="",
 
     if pid:
         fixed_url = fixed_url.replace('PID', pid)
+
+    # print(fixed_url)
 
     # if (endpoint == 'assembly-definition'):
     #   fixed_url = fixed_url.replace('OPT1', "true") # Mate Features
