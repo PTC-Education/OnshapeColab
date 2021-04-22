@@ -4,6 +4,29 @@ This playground was adapted from a previously made repo: https://github.com/imno
 ## Purpose
 This repository is intended to be used with an external file which references the utility functions here. Its intent is to make powerful features of the Onshape API accessible.
 
+# Table of Contents
+- Getting Started Documentation
+  - [Onshape API Keys](https://github.com/PTC-Education/PTCColab#onshape-api-keys)
+  - [Thingworx Keys](https://github.com/PTC-Education/PTCColab#thingworx-if-being-used)
+- Function Documentation
+  - Onshape Connection / [Connect to Onshape](https://github.com/PTC-Education/PTCColab#connecttoonshape)
+    - Information Queries
+        - [GET Document Information](https://github.com/PTC-Education/PTCColab#getdocumentinfo)
+        - [GET Part Information](https://github.com/PTC-Education/PTCColab#getparts)
+        - [GET Meta Data](https://github.com/PTC-Education/PTCColab#getmeta)
+    - Assemblies and Transforms
+        - [GET Assembly Information](https://github.com/PTC-Education/PTCColab#getassemblyinfo)
+        - [PRINT Assembly Information](https://github.com/PTC-Education/PTCColab#printassembly)
+        - [POST Transform](https://github.com/PTC-Education/PTCColab#posttransform)
+    - Configurations
+        - [GET Configurations](https://github.com/PTC-Education/PTCColab#getconfigurations)
+        - [POST Configurations](https://github.com/PTC-Education/PTCColab#setconfigurations)
+        - [PRINT Configurations](https://github.com/PTC-Education/PTCColab#printconfigurations)
+        - [Prompt Configurations](https://github.com/PTC-Education/PTCColab#promptconfigurations)
+  - Thingworx Connection / [Connect to Thingworx](https://github.com/PTC-Education/PTCColab#connecttothingworxurl-appkey-verbosefalse)
+    - [GET Thingworx Fields and Properties](https://github.com/PTC-Education/PTCColab#thingworxget)
+    - [PUT Thingworx Properties](https://github.com/PTC-Education/PTCColab#thingworxput)
+
 # Getting Started
 ## Onshape
 - To connect to the Onshape API, an api key and secret are needed.
