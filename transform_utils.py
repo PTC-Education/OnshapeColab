@@ -147,7 +147,7 @@ def getTranslationMatrix(translation, verbose=False):
 # Returns:
 #   a tranform args object (array)
 #
-def decodeMatrix(M, verbose):
+def decodeMatrix(M, verbose=False):
 
     tx = M[3]
     ty = M[7]
@@ -283,7 +283,7 @@ def multiply(A, B):
     return C
 
 
-# add() - Multiplies matrix A and B
+# add() - Adds matrix A and B
 # Parameters:
 #   A - the first transformation matrix
 #   B - the second transformation matrix
