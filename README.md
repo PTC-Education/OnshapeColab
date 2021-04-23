@@ -1,4 +1,4 @@
-# PTC API Playground
+# PTC Colab - PTC API Playground Python Package
 
 ## Purpose
 This repository is intended to be used as a python library-- used with an external file which references the functions defined here. Its intent is to make powerful features of the Onshape and Thingworx APIs intuitively accessible.
