@@ -1,8 +1,7 @@
-# Onshape API Playground: transformations and configurations
-This playground was adapted from a previously made repo: https://github.com/imnotartsy/Onshape-Connections
+# PTC API Playground
 
 ## Purpose
-This repository is intended to be used with an external file which references the utility functions here. Its intent is to make powerful features of the Onshape API accessible.
+This repository is intended to be used as a python library-- used with an external file which references the functions defined here. Its intent is to make powerful features of the Onshape and Thingworx APIs intuitively accessible.
 
 # Table of Contents
 - Getting Started Documentation
